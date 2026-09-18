@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Sosial Shinxxx</title>
+    <style>
+        /* === RESET DASAR === */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent; /* <--- BARU: ilangin highlight biru */
+        }
+
+        /* === BACKGROUND VIDEO FULLSCREEN === */
+        body {
+            min-height: 100vh;
+            background: #111;
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+        }
+
+        #bg-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+
+        .container {
+            position: relative;
+            width: 90%;
+            max-width: 900px;
+            margin-top: 270px;
+        }
+
+        .card {
+            top: -190px;
+            position: relative;
+            width: 100%;
+            height: 130px;
+            overflow: hidden;
+            border-radius: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.7);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+        }
+
+        .card-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+        }
+
+        .text {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
+        }
+
+        .text h1 {
+            font-size: 3rem;
+        }
+
+        .profile-wrapper {
+            top: -100px;
+            position: absolute;
+            bottom: -60px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+        }
+
+        .profile-glow {
+            position: absolute;
+            inset: -10px;
+            border-radius: 50%;
+            background: conic-gradient(
+                from 0deg,
+                #ff0080, #ff8c00, #ffee00, #00ff88, #00cfff, #7a00ff, #ff0080
+            );
+            filter: blur(20px);
+            opacity: 0.9;
+            animation: spin 6s linear infinite;
+            z-index: 0;
+        }
+
+        .profile-img {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid white;
+            z-index: 1;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to   { transform: rotate(360deg); }
+        }
+
+        .deskripsi {
+            transform: translateY(-120px);
+            text-align: center;
+            color: white;
+            font-style: italic;
+            font-weight: 300;
+            font-size: 16px;
+            line-height: 1.6;
+            max-width: 600px;
+            margin: 20px auto 0;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
+            padding: 0 20px;
+        }
+
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            margin-top: 67px;
+            transform: translateY(-120px);
+            width: 100%;
+        }
+
+        .btn {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 260px;
+            padding: 14px 24px;
+            border-radius: 50px;
+            text-decoration: none;
+            color: white;
+            font-weight: 500;
+            font-size: 16px;
+            letter-spacing: 0.5px;
+            overflow: hidden;
+
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+
+            border: 1.5px solid rgba(255, 255, 255, 0.6);
+            box-shadow:
+                inset 0 1px 1px rgba(255, 255, 255, 0.6),
+                inset 0 -1px 1px rgba(255, 255, 255, 0.15),
+                0 4px 15px rgba(0, 0, 0, 0.3);
+
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .btn::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: linear-gradient(
+                to bottom,
+                rgba(255, 255, 255, 0.25),
+                rgba(255, 255, 255, 0)
+            );
+            border-radius: 50px 50px 0 0;
+            pointer-events: none;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+        }
+
+        .btn-wa {
+            box-shadow:
+                inset 0 1px 1px rgba(255, 255, 255, 0.6),
+                inset 0 -1px 1px rgba(255, 255, 255, 0.15),
+                0 0 20px rgba(37, 211, 102, 0.55),
+                0 0 40px rgba(37, 211, 102, 0.3);
+        }
+
+        .btn-tt {
+            box-shadow:
+                inset 0 1px 1px rgba(255, 255, 255, 0.6),
+                inset 0 -1px 1px rgba(255, 255, 255, 0.15),
+                0 0 20px rgba(255, 255, 255, 0.55),
+                0 0 40px rgba(255, 255, 255, 0.25);
+        }
+
+        .btn-ig {
+            box-shadow:
+                inset 0 1px 1px rgba(255, 255, 255, 0.6),
+                inset 0 -1px 1px rgba(255, 255, 255, 0.15),
+                0 0 20px rgba(255, 20, 147, 0.55),
+                0 0 40px rgba(255, 20, 147, 0.3);
+        }
+
+        .wm {
+            top: 180px;
+            color: white;
+            font-size: 6px;
+            margin-left: 157px;
+        }
+    </style>
+</head>
+<body>
+
+    <video autoplay muted loop playsinline id="bg-video">
+        <source src="Video/video.mp4" type="video/mp4">
+    </video>
+
+    <div class="container">
+
+        <div class="card">
+            <video autoplay muted loop playsinline class="card-video">
+                <source src="Video/video2.mp4" type="video/mp4">
+            </video>
+            <div class="text">
+                <h1>Welcome</h1>
+            </div>
+        </div>
+
+        <div class="profile-wrapper">
+            <div class="profile-glow"></div>
+            <img src="profile.jpg" alt="Profile" class="profile-img">
+        </div>
+
+        <div class="deskripsi">
+            <p> Welcome Minaa, Selamat datang di web sosial ku Dukung aku dalam berbagai akun lain nya</p>
+        </div>
+
+        <div class="buttons">
+            <a href="https://wa.me/628xxxxxxxxxx" target="_blank" class="btn btn-wa">
+                <span>WhatsApp</span>
+            </a>
+
+            <a href="https://tiktok.com/@usernamekamu" target="_blank" class="btn btn-tt">
+                <span>TikTok</span>
+            </a>
+
+            <a href="https://instagram.com/usernamekamu" target="_blank" class="btn btn-ig">
+                <span>Instagram</span>
+            </a>
+        </div>
+
+        <div class="wm">
+            <p>© Jay | 2026</p>
+        </div>
+
+    </div>
+
+    <!-- ============================================= -->
+    <!-- SCRIPT ANIMASI (Zoom Unlock + Spring Tombol) -->
+    <!-- ============================================= -->
+    <script>
+    window.addEventListener('load', () => {
+
+        const card      = document.querySelector('.card');
+        const profile   = document.querySelector('.profile-wrapper');
+        const deskripsi = document.querySelector('.deskripsi');
+        const allBtns   = document.querySelectorAll('.btn');
+
+        // ==================================================
+        // 1. ENTRANCE — Zoom Unlock ala iPhone
+        // ==================================================
+        const entrance = [
+            { el: card,      from: 'scale(1.15)',                    to: 'scale(1)',                    delay: 0   },
+            { el: profile,   from: 'translateX(-50%) scale(1.15)',   to: 'translateX(-50%) scale(1)',   delay: 250 },
+            { el: deskripsi, from: 'translateY(-120px) scale(1.15)', to: 'translateY(-120px) scale(1)', delay: 500 }
+        ];
+
+        entrance.forEach(({ el, from, to, delay }) => {
+            if (!el) return;
+            const anim = el.animate(
+                [
+                    { opacity: 0, transform: from },
+                    { opacity: 1, transform: to }
+                ],
+                {
+                    duration: 900,
+                    delay: delay,
+                    easing: 'cubic-bezier(0.22, 1, 0.36, 1)',
+                    fill: 'both'
+                }
+            );
+            anim.onfinish = () => anim.cancel();
+        });
+
+        // Tombol muncul berurutan (stagger)
+        allBtns.forEach((btn, i) => {
+            const anim = btn.animate(
+                [
+                    { opacity: 0, transform: 'translateY(25px) scale(0.9)' },
+                    { opacity: 1, transform: 'translateY(0) scale(1)' }
+                ],
+                {
+                    duration: 700,
+                    delay: 750 + (i * 150),
+                    easing: 'cubic-bezier(0.34, 1.56, 0.64, 1)',
+                    fill: 'both'
+                }
+            );
+            anim.onfinish = () => anim.cancel();
+        });
+
+        // ==================================================
+        // 2. PRESS — Maju mundur + spring balik
+        // ==================================================
+        allBtns.forEach(btn => {
+            let pressAnim = null;
+
+            btn.addEventListener('pointerdown', () => {
+                if (pressAnim) pressAnim.cancel();
+                pressAnim = btn.animate(
+                    [{ transform: 'scale(1)' }, { transform: 'scale(0.9)' }],
+                    { duration: 120, easing: 'ease-out', fill: 'forwards' }
+                );
+            });
+
+            const release = () => {
+                if (!pressAnim) return;
+                pressAnim.cancel();
+                pressAnim = btn.animate(
+                    [{ transform: 'scale(0.9)' }, { transform: 'scale(1)' }],
+                    { duration: 350, easing: 'cubic-bezier(0.34, 1.56, 0.64, 1)', fill: 'forwards' }
+                );
+                pressAnim.onfinish = () => {
+                    pressAnim.cancel();
+                    pressAnim = null;
+                };
+            };
+
+            btn.addEventListener('pointerup', release);
+            btn.addEventListener('pointerleave', release);
+            btn.addEventListener('pointercancel', release);
+        });
+
+    });
+    </script>
+
+</body>
+</html>
